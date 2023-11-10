@@ -12,6 +12,31 @@
  *                      user in sudoer list]
  *                      To see available options, run with -h option as below
  *                      ./packet-sniffer -h
+ *
+ * Overview of the assignment
+ * ==========================
+ * In this assignment, we use pcap library to capture all packets travelling
+ * in the local network. Via the use of command line arguments, user can 
+ * control which packets they want to be flagged.
+ *
+ * In this assignment, our focus is on the HTTP protocol. We provide options
+ * to the user to mention which HTTP request verbs are to be flagged, if found
+ * over the network. Currentlt, for the purposes of this assignment, only
+ * 4 HTTP verbs are considered : GET, PUT, POST and DELETE. Others are not
+ * allowed. Also all HTTP response packets are flagged by default.
+ * 
+ * For e.g. to flag all HTTP POST requests, the user can run the program in 
+ * the following manner :
+ * ./packet-sniffer -i enp0s3 -a http -X POST
+ * 
+ * In the above command, enp0s3 in the interface. If not provided, the program
+ * will display all the available interfaces, and user can choose one.
+ *
+ * Similarly to view any HTTP request packet (with method = GET/PUT/POST/DELETE)
+ * user need to run :
+ * ./packet-sniffer -i enp0s3 -a http -X all
+ *
+ *
  *****************************************************************************/           
 
 #include <pcap/pcap.h>
@@ -332,7 +357,7 @@ void print_help(const char *progname, const char *additional_msg) {
 void handle_command_line_options(int argc, char **argv) {
 	char c;
     int i =0, method_found = 0;
-	char http_methods[4][7] = {"get","put","post", "delete"};
+	char http_methods[5][7] = {"get","put","post", "delete", "all"};
 
 	while ((c = getopt(argc, argv, ":i:c:t:a:X:h")) != -1) {
 		switch(c) {
@@ -356,9 +381,7 @@ void handle_command_line_options(int argc, char **argv) {
 				break;
 			case 'X':
 				http_request_method = optarg;
-				for (i=0; i<4; i++) {
-					printf("http_request_method = %s,http_method[%d] = %s",http_request_method,i,http_methods[i]);
-					
+				for (i=0; i<5; i++) {
 					if (strcmp(http_methods[i], http_request_method) == 0) {
 						method_found = 1;
 						break;
@@ -376,8 +399,13 @@ void handle_command_line_options(int argc, char **argv) {
 	}
 }
 
+/************************************************************************
+ * This is a helper function. This function is registered to execute on 
+ * pressing control+c. When user presses control+c to exit,
+ * we display total packets captured and total packets flagged.
+ ***********************************************************************/
+
 void ctrlc_handler(int sig) {
-	//pcap_close(descr);
 	printf("\nCaptured packets / flagged packets : %d/%d.\n",packet_counter, flagged_packets);
 	exit(0);
 }
