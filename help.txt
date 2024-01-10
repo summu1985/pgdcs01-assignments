@@ -1,0 +1,55 @@
+usage:
+./udpclient <host> <command> [parameter]
+
+where,
+host = where the udp phonebook server is hosted. For e.g. host can be 
+       localhost or 127.0.0.1, if the server is running on same 
+       machine
+command = command can be one of the four strings - LOOKUP , ADD, REMOVE or
+          PING.
+          LOOKUP command is used for searching or looking up any
+          user that may be present in the server (phonebook)
+          memory.
+          ADD command is used for adding an user into the phonebook
+          memory.
+          REMOVE command is used for removing an user from the
+          phonebook memory.
+		  PING command is used for checking the status of the server.
+          If the server is up and accepting messages, it will respond with
+          PONG message back.
+parameter = All 3 commands require a parameter. They are as below :
+            For LOOKUP/REMOVE, parameter is of the format <username>.
+            For ADD command, the paramter is of the format : <username>:<email_address>:<phone_number>
+            For PING command, no parameter is needed.
+
+Run this command without any parameter to see this help message again
+
+Sample execution of the command and response
+
+# Add an user
+./udpclient 127.0.0.1 ADD NITIN:nitin@gmail.com:1234567890
+User added
+
+# Lookup an user
+./udpclient 127.0.0.1 LOOKUP NITIN
+Name:NITIN#Phone:1234567890#Email:nitin@gmail.com
+
+# Remove an existing user
+./udpclient 127.0.0.1 REMOVE NITIN
+User removed!
+
+# Remove a non existing user / error in removing
+./udpclient 127.0.0.1 REMOVE NITIN
+User not found or could not be removed!
+
+# Send incorrect command
+./udpclient 127.0.0.1 LOOK NITIN
+Unknown Command
+
+# Send incorrect parameter
+./udpclient 127.0.0.1 ADD SUMIT:sumit@gmail.com
+Error in command syntax
+
+# Check status of the server
+./udpclient 127.0.0.1 PING
+PONG
