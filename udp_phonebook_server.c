@@ -1,3 +1,41 @@
+/******************************************************************************
+ * IITJ PGDCS 01 - Group 7
+ * Assignment date : 12-Jan-24
+ * Computer Networking Assigment no 2 (Application utilizing UCP sockets)
+ * Authors : Sumit Mukherjee (sumit.mckv@gmail.com)
+ *           Vineet Sinha (vineet0506@gmail.com)
+ *           Vijay Sharma (vj141418@gmail.com)
+ *           Sunil Singh (sunilsinghshiv@gmail.com)
+ *           Sunil Kumar (sk2504@gmail.com)
+ * Compilation instruction: gcc udp_phonebook_server.c -o udpserver
+ * Running instruction: ./udpserver
+ *
+ * Overview of the assignment
+ * ==========================
+ * In this assignment, we develop a trivial network phonebook application
+ * over UDP sockets. The phonebook application utilizes a custom protocol
+ * where it understand 4 commands and its associated parameters. The details
+ * of the commands and the parameters supported are mentioned in the 
+ * accompanying help.txt file.
+ *
+ * We have also developed a client application as well, which communicates
+ * with the server over UDP sockets using the above custom protocol / request
+ * - repsonse structure.
+ * The client application can send requests to :
+ * - add a user to the phonebook
+ * - remove a user from the phonebook
+ * - search or lookup a user in the phoneebook
+ * - check the status of the server
+ *
+ * The server application implementation is deliberately trivial, to focus
+ * on the networking part. The server stores all added users in memory (RAM).
+ * Hence all added users are not persisted once the server is terminated.
+ * The commands and parameters communicated by the client to the server and 
+ * the response sent by the server to the client is via plain strings added
+ * as payload of UDP sockets.
+ *
+ *****************************************************************************/ 
+
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
