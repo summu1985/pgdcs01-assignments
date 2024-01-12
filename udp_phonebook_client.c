@@ -1,4 +1,15 @@
-/***************************************************************** 
+/******************************************************************************
+ * IITJ PGDCS 01 - Group 7
+ * Assignment date : 12-Jan-24
+ * Computer Networking Assigment no 2 (Application utilizing UCP sockets)
+ * Authors : Sumit Mukherjee (sumit.mckv@gmail.com)
+ *           Vineet Sinha (vineet0506@gmail.com)
+ *           Vijay Sharma (vj141418@gmail.com)
+ *           Sunil Singh (sunilsinghshiv@gmail.com)
+ *           Sunil Kumar (sk2504@gmail.com)
+ * Compilation instruction: gcc udp_phonebook_client.c -o udpclient
+ * Running instruction: ./udpclient <server_host_op_IP> <command> [parameters]
+ *
  * A sample implementation of a UDP phonebook client application.
  * This application expects the phonebook server application
  * host address and message to send to the server as command line
